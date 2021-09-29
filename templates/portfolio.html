@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Zhuo Yixuan">
+    <link rel="stylesheet" href="Style.css">
+    <title>GoldMiners Portfolio Manage</title>
+</head>
+<body>
+    <div class="root">
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <br/><br/>
+                <h2>Navigation</h2>
+                <p class="instructor">Go to: </p>
+                <select>
+                    <option value="port">Portfolio Manage</option>                
+                    <option value="v2">Technical Analyze</option>       
+                </select>
+                <h3> Set your Portfolio:</h3>
+                <p class="instructor">Input your stocks index: <br>(<em>split them by ","</em>)</p>
+                <from class="Portfolio_Parameter" method="post">
+                    <input class="input_value" type = "text" name='stocks' value='AAPL,AMZN,FB'
+                    onclick="javascript: if(value != ''){value =''}" 
+                    onblur="javascript: if(value ==''){value='AAPL,AMZN,FB'}">
+                    <button class="button">Change</button>
+                </from>
+                <from>
+                    <p class="instructor"> Number of days to predict:<br/>(work days > 10)</p>
+                    <input class="input_value" type = "number" name='days' value=10
+                    onclick="javascript: if(value != ''){value =''}" 
+                    onblur="javascript: if(value ==''){value=10}">
+                    <button class="button">Change</button>
+                </from>
+                <from>
+                    <p class="instructor"> Initial Weight:</p>
+                    <input class="input_value" type = "number" name='w0' value=1000
+                    onclick="javascript: if(value != ''){value =''}" 
+                    onblur="javascript: if(value ==''){value=1000}">
+                    <button class="button">Change</button>
+                </from>
+            </div>
+        </div>
+        <div class="content">
+            <br/>
+            <h2>Current stocks:</h2>
+            <p class="picture_headers">Simulated Efficient Frontier</p>
+            <a herf></a>
+            <!--show historical return vol, future return and VaR-->
+            <p class="picture_headers">Minimum Volatility Portfolio Allocation :</p>
+            <p class="picture_headers">Minimum Volatility Portfolio future predict(MC simulation)</p>
+            <a herf></a>
+            <p class="picture_headers">Portfolio Information:</p>
+            <p class="picture_headers">Maximum Sharpe Ratio Portfolio Allocation :</p>
+            <p class="picture_headers">Best Sharp Ratio Portfolio future predict(MC simulation)</p>
+            <a herf></a>
+            <p class="picture_headers">Portfolio Information:</p>
+
+            <h3>Set your own weight: (<em>split them by ","</em>)</h3>
+            <from class="Weight" method="post">
+                <input class="input_value" type = "text" name='weight' value='0.2,0.3,0.5'
+                onclick="javascript: if(value == 'AAPL,AMZN,FB'){value =''}" 
+                onblur="javascript: if(value ==''){value='AAPL,AMZN,FB'}">
+                <button class="button">Change</button>
+            </from>
+            <p class="picture_headers"> Portfolio future predict(MC simulation)</p>
+            <a herf></a>
+            <p class="picture_headers">Portfolio Information:</p>
+
+    </div>
+</body>
+</html>
