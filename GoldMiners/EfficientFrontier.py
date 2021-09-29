@@ -79,7 +79,7 @@ def display_simulated_ef_with_random(df, mean_returns, num_securities, cov_matri
     min_vol_allocation = pd.DataFrame(weights[min_vol_idx], index=df.columns, columns=['allocation'])
     min_vol_allocation['allocation'] = [round(i * 100, 2) for i in min_vol_allocation['allocation']]
     min_vol_allocation = min_vol_allocation.T
-
+    '''
     # Output the portfolio return and standard deviation of the Minimum Volatility Portfolio
     print("-" * 80)
     print("Minimum Volatility Portfolio Allocation\n")
@@ -95,7 +95,7 @@ def display_simulated_ef_with_random(df, mean_returns, num_securities, cov_matri
     print("Annualised Volatility:", round(sdp, 2))
     print("\n")
     print(max_sharpe_allocation)
-
+    '''
     # Plot anualized portfolio return vs annualized portfolio volatility
     plt.figure(figsize=(10, 7))
     plt.scatter(results[0, :], results[1, :], c=results[2, :], cmap='YlGnBu', marker='o', s=10, alpha=0.3)
@@ -110,3 +110,4 @@ def display_simulated_ef_with_random(df, mean_returns, num_securities, cov_matri
     plt.xlabel('annualised volatility')
     plt.ylabel('annualised returns')
     plt.legend(labelspacing=0.8)
+    return (min_vol_allocation,max_sharpe_allocation)
