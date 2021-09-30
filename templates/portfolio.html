@@ -3,70 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Zhuo Yixuan">
-    <link rel="stylesheet" href="Style.css">
-    <title>GoldMiners Portfolio Manage</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/Style.css' %}">
+
+    <script src="{% static 'js/Functions.js' %}"></script>
+
+    <title>GoldMiners Portfolio Management</title>
 </head>
 <body>
     <div class="root">
+
         <div class="sidebar">
             <div class="sidebar-content">
-                <br/><br/>
                 <h2>Navigation</h2>
-                <p class="instructor">Go to: </p>
-                <select>
-                    <option value="port">Portfolio Manage</option>                
-                    <option value="v2">Technical Analyze</option>       
-                </select>
+                <div class="page-nav">
+                    <p class="instructor">Go to: </p>
+                    <select class="page-nav-select">
+                        <option value="port">Portfolio Manage</option>                
+                        <option value="v2">Technical Analyze</option>       
+                    </select>
+                </div>
+
                 <h3> Set your Portfolio:</h3>
-                <p class="instructor">Input your stocks index: <br>(<em>split them by ","</em>)</p>
-                <from class="Portfolio_Parameter" method="post">
-                    <input class="input_value" type = "text" name='stocks' value='AAPL,AMZN,FB'
-                    onclick="javascript: if(value != ''){value =''}" 
-                    onblur="javascript: if(value ==''){value='AAPL,AMZN,FB'}">
-                    <button class="button">Change</button>
-                </from>
-                <from>
-                    <p class="instructor"> Number of days to predict:<br/>(work days > 10)</p>
-                    <input class="input_value" type = "number" name='days' value=10
-                    onclick="javascript: if(value != ''){value =''}" 
-                    onblur="javascript: if(value ==''){value=10}">
-                    <button class="button">Change</button>
-                </from>
-                <from>
-                    <p class="instructor"> Initial Weight:</p>
-                    <input class="input_value" type = "number" name='w0' value=1000
-                    onclick="javascript: if(value != ''){value =''}" 
-                    onblur="javascript: if(value ==''){value=1000}">
-                    <button class="button">Change</button>
-                </from>
+                <div class="set-params">
+                    <p class="instructor">Input your chosen stock symbols: <br>(<em>split them by ","</em>)</p>
+                    
+                    <form class="Portfolio_Parameter" method="post" action="">
+                        <!--后端通过name拿到数据-->
+                        <input class="input_value" type = "text" name="port" value='AAPL,AMZN,FB,WMT'
+                        onclick="javascript: if(value != ''){value =''}" 
+                        onblur="javascript: if(value ==''){value='AAPL,AMZN,FB,WMT'}">
+                        <button class="button" type="submit">Change</button>
+                    </form>
+
+                    <form method="post}" action="">
+                        <p class="instructor"> Number of days to predict:<br/>(trading days > 10)</p>
+                        <input class="input_value" type = "text" name="days" value='10'
+                        onclick="javascript: if(value != ''){value =''}" 
+                        onblur="javascript: if(value ==''){value='10'}" 
+                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        <button class="button" type="submit">Change</button>
+                    </form>
+
+                    <form method="post" action="">
+                        <p class="instructor"> Confidence level:</p>
+                        <input class="input_value" type="text" name='conf' value='0.05'
+                        onclick="javascript: if(value != ''){value =''}"
+                        onblur="javascript: if(value ==''){value='0.05'}"
+                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        <button class="button" type="submit">Change</button>
+                    </form>
+
+                    <form method="post" action="">
+                        <p class="instructor"> Capital invested:</p>
+                        <input class="input_value" type = "text" name='w0' value='1000'
+                        onclick="javascript: if(value != ''){value =''}" 
+                        onblur="javascript: if(value ==''){value='1000'}" 
+                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        <button class="button" type="submit">Change</button>
+                    </form>
+                </div>
             </div>
         </div>
+
         <div class="content">
-            <br/>
-            <h2>Current stocks:</h2>
-            <p class="picture_headers">Simulated Efficient Frontier</p>
-            <a herf></a>
-            <!--show historical return vol, future return and VaR-->
-            <p class="picture_headers">Minimum Volatility Portfolio Allocation :</p>
-            <p class="picture_headers">Minimum Volatility Portfolio future predict(MC simulation)</p>
-            <a herf></a>
-            <p class="picture_headers">Portfolio Information:</p>
-            <p class="picture_headers">Maximum Sharpe Ratio Portfolio Allocation :</p>
-            <p class="picture_headers">Best Sharp Ratio Portfolio future predict(MC simulation)</p>
-            <a herf></a>
-            <p class="picture_headers">Portfolio Information:</p>
+            <div class="results">
+                <h2>Current stocks</h2>
+                <p class="picture_headers">Simulated Efficient Frontier</p>
+                <img src="{{ img_ef }}" class="graph">
+                <hr/>
 
-            <h3>Set your own weight: (<em>split them by ","</em>)</h3>
-            <from class="Weight" method="post">
-                <input class="input_value" type = "text" name='weight' value='0.2,0.3,0.5'
-                onclick="javascript: if(value == 'AAPL,AMZN,FB'){value =''}" 
-                onblur="javascript: if(value ==''){value='AAPL,AMZN,FB'}">
-                <button class="button">Change</button>
-            </from>
-            <p class="picture_headers"> Portfolio future predict(MC simulation)</p>
-            <a herf></a>
-            <p class="picture_headers">Portfolio Information:</p>
+                <!--show historical return vol, future return and VaR-->
+                <p class="picture_headers">Minimum Volatility Portfolio Allocation:</p>
+                <p>{{ minvol }}</p>
 
+                <p class="picture_headers">Minimum Volatility Portfolio future predict(MC simulation)</p>
+                <img src="{{ img_min }}" class="graph">
+
+                <p class="picture_headers">Portfolio Information: VaR = {{ VaR_min }}</p>
+                <hr/>
+
+                <p class="picture_headers">Maximum Sharpe Ratio Portfolio Allocation:</p>
+                <p>{{ maxshp }}</p>
+
+                <p class="picture_headers">Maximum Sharpe Ratio Portfolio future predict(MC simulation)</p>
+                <img src="{{ img_max }}" class="graph">
+
+                <p class="picture_headers">Portfolio Information:  VaR = {{ VaR_max }}</p>
+                <hr/>
+                
+                <h3>Set your own weight (<em>split them by ","</em>): </h3>
+                <form class="Weight" method="post">
+                    <input class="input_value" type = "text" name='weights' value='0.25,0.25,0.25,0.25'
+                    onclick="javascript: if(value == '0.25,0.25,0.25,0.25'){value =''}" 
+                    onblur="javascript: if(value ==''){value='0.25,0.25,0.25,0.25'}">
+                    <button class="button">Change</button>
+                </form>
+                <p class="picture_headers"> Portfolio future predict(MC simulation): </p>
+                <img src="{{ img_mc }}" class="graph">
+                <p class="picture_headers">Portfolio Information: VaR = {{ VaR_mc }}</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
