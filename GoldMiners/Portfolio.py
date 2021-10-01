@@ -173,6 +173,6 @@ def display_simulated_mc(S0_list, sig_list, risk_free_rate, weights, T=10, conf_
     plt.close()
     # VaR
     VaR = 0
-    St = S.sum(axis=0)
+    St = S[-1]-S[0]
     VaR = -np.percentile(St,conf_level*100)
-    return buffer, VaR
+    return buffer, round(VaR,2)
