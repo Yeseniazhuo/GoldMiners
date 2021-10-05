@@ -2,6 +2,6 @@ pandas
 numpy
 Datetime
 Matplotlib
-Finance
+yfinance
 Math
 Django
