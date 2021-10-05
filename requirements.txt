@@ -3,5 +3,4 @@ numpy
 Datetime
 Matplotlib
 yfinance
-Math
 Django
