@@ -12,6 +12,7 @@ def decode_plot(buffer):
 def portfolio(request):
     port = 'AAPL,AMZN,FB,WMT'
     days = 10
+    vol = 0.2
     conf = 0.05
     w0 = 1000
     ws = '0.25,0.25,0.25,0.25'
@@ -24,12 +25,14 @@ def portfolio(request):
             days = int(request.GET.get('days'))
         if 'conf' in request.GET:
             conf = float(request.GET.get('conf'))
+        if 'vol' in request.GET:
+            vol = float(request.GET.get('vol'))
         if 'w0' in request.GET:
             w0 = int(request.GET.get('w0'))
         if 'weights' in request.GET:
             ws = request.GET.get('weights')
     
-    buf_ef, min_vol_allocation, max_sharpe_allocation, S0_list, sig_list, buf_min, VaR_min, buf_max, VaR_max, buf_mc, VaR_mc = display_simulated_ef_with_random(port,ws,days,conf,w0)
+    buf_ef, min_vol_allocation, max_sharpe_allocation, buf_min, VaR_min, buf_max, VaR_max, buf_mc, VaR_mc = display_simulated_ef_with_random(port,ws,days,vol,conf,w0)
 
     imd_ef = decode_plot(buf_ef)
     imd_min = decode_plot(buf_min)

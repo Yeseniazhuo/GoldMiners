@@ -17,6 +17,7 @@
         <div class="sidebar">
             <div class="sidebar-content">
                 <h2>Navigation</h2>
+                <!--
                 <div class="page-nav">
                     <p class="instructor">Go to: </p>
                     <select class="page-nav-select">
@@ -24,6 +25,7 @@
                         <option value="v2">Technical Analyze</option>       
                     </select>
                 </div>
+                -->
 
                 <h3> Set your Portfolio:</h3>
                 <div class="set-params">
@@ -42,6 +44,15 @@
                         <input class="input_value" type = "text" name="days" value='10'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='10'}" 
+                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        <button class="button" type="submit">Change</button>
+                    </form>
+
+                    <form method="post" action="">
+                        <p class="instructor"> Volatility:</p>
+                        <input class="input_value" type="text" name='vol' value='0.2'
+                        onclick="javascript: if(value != ''){value =''}"
+                        onblur="javascript: if(value ==''){value='0.2'}"
                         oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
                         <button class="button" type="submit">Change</button>
                     </form>
