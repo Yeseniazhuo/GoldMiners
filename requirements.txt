@@ -4,3 +4,4 @@ Datetime
 Matplotlib
 yfinance
 Django
+django_heroku
