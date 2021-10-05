@@ -1,0 +1,8 @@
+pandas
+os
+numpy
+Datetime
+Matplotlib
+Finance
+Math
+Django
