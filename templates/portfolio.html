@@ -44,16 +44,16 @@
                         <input class="input_value" type = "text" name="days" value='10'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='10'}" 
-                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
                         <button class="button" type="submit">Change</button>
                     </form>
 
                     <form method="post" action="">
-                        <p class="instructor"> Volatility:</p>
-                        <input class="input_value" type="text" name='vol' value='0.2'
+                        <p class="instructor"> Volatility estimation period:<br/>(previous n days)</p>
+                        <input class="input_value" type="text" name='vol' value='30'
                         onclick="javascript: if(value != ''){value =''}"
-                        onblur="javascript: if(value ==''){value='0.2'}"
-                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        onblur="javascript: if(value ==''){value='30'}"
+                        oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
                         <button class="button" type="submit">Change</button>
                     </form>
 
@@ -71,7 +71,16 @@
                         <input class="input_value" type = "text" name='w0' value='1000'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='1000'}" 
-                        oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
+                        oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
+                        <button class="button" type="submit">Change</button>
+                    </form>
+
+                    <form method="post" action="">
+                        <p class="instructor"> Number of simulation:</p>
+                        <input class="input_value" type = "text" name='num_sim' value='300'
+                        onclick="javascript: if(value != ''){value =''}" 
+                        onblur="javascript: if(value ==''){value='300'}" 
+                        oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
                         <button class="button" type="submit">Change</button>
                     </form>
                 </div>
@@ -92,7 +101,10 @@
                 <p class="picture_headers">Minimum Volatility Portfolio future predict(MC simulation)</p>
                 <img src="{{ img_min }}" class="graph">
 
-                <p class="picture_headers">Portfolio Information: VaR = {{ VaR_min }}</p>
+                <p class="picture_headers">Portfolio Information:</p>
+                <p>VaR = {{ VaR_min }}</p>
+                <p>Annualized return = {{AR_min}}</p>
+                <p>Max Drawdown = {{MMD_min}}</p>
                 <hr/>
 
                 <p class="picture_headers">Maximum Sharpe Ratio Portfolio Allocation:</p>
@@ -101,7 +113,10 @@
                 <p class="picture_headers">Maximum Sharpe Ratio Portfolio future predict(MC simulation)</p>
                 <img src="{{ img_max }}" class="graph">
 
-                <p class="picture_headers">Portfolio Information:  VaR = {{ VaR_max }}</p>
+                <p class="picture_headers">Portfolio Information:</p>
+                <p>VaR = {{ VaR_max }}</p>
+                <p>Annualized return = {{AR_max}}</p>
+                <p>Max Drawdown = {{MMD_max}}</p>
                 <hr/>
                 
                 <h3>Set your own weight (<em>split them by ","</em>): </h3>
@@ -113,7 +128,10 @@
                 </form>
                 <p class="picture_headers"> Portfolio future predict(MC simulation): </p>
                 <img src="{{ img_mc }}" class="graph">
-                <p class="picture_headers">Portfolio Information: VaR = {{ VaR_mc }}</p>
+                <p class="picture_headers">Portfolio Information:</p>
+                <p>VaR = {{ VaR_mc }}</p>
+                <p>Annualized return = {{AR_mc}}</p>
+                <p>Max Drawdown = {{MMD_mc}}</p>
             </div>
         </div>
     </div>

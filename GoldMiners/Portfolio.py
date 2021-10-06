@@ -53,7 +53,7 @@ def portfolio_annualized_performance(weights, mean_returns, cov_matrix):
     std = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights))) * np.sqrt(252)
     return std, returns
 
-def display_simulated_ef_with_random(stk_list, ws, T=10, sig = 0.2, conf_level = 0.05, capital=1000, num_portfolios=30000):
+def display_simulated_ef_with_random(stk_list, ws, T=10, vol = 30, conf_level = 0.05, capital=1000, num_sim=300, num_portfolios=30000):
     """
     Function displays the efficient frontier, and the weights allocated for the minimum variance portfolio 
     and market optimal portfolio using the Monte Carlo method. 
@@ -121,16 +121,16 @@ def display_simulated_ef_with_random(stk_list, ws, T=10, sig = 0.2, conf_level =
 
     # Params for Monte Carlo Simulation
     S0_list = main_data.iloc[-1].values
-    # sig_list = returns.std().values
+    sig_list = returns.iloc[-vol:].std().values
     ws = np.array([float(x) for x in ws.split(',')])
 
-    buf_min, VaR_min = display_simulated_mc(S0_list, sig, risk_free_rate, min_vol_allocation.loc['allocation'].values/100, T, conf_level, capital)
-    buf_max, VaR_max = display_simulated_mc(S0_list, sig, risk_free_rate, max_sharpe_allocation.loc['allocation'].values/100, T, conf_level, capital)
-    buf_mc, VaR_mc = display_simulated_mc(S0_list, sig, risk_free_rate, ws, T, conf_level, capital)
+    buf_min, VaR_min, AR_min, MMD_min = display_simulated_mc(S0_list, sig_list, risk_free_rate, min_vol_allocation.loc['allocation'].values/100, T, conf_level, capital, num_sim)
+    buf_max, VaR_max, AR_max, MMD_max = display_simulated_mc(S0_list, sig_list, risk_free_rate, max_sharpe_allocation.loc['allocation'].values/100, T, conf_level, capital, num_sim)
+    buf_mc, VaR_mc, AR_mc, MMD_mc = display_simulated_mc(S0_list, sig_list, risk_free_rate, ws, T, conf_level, capital, num_sim)
 
-    return buf_ef, min_vol_allocation, max_sharpe_allocation, buf_min, VaR_min, buf_max, VaR_max, buf_mc, VaR_mc
+    return buf_ef, min_vol_allocation, max_sharpe_allocation, buf_min, VaR_min, AR_min, MMD_min, buf_max, VaR_max, AR_max, MMD_max, buf_mc, VaR_mc, AR_mc, MMD_mc
 
-def display_simulated_mc(S0_list, sig, risk_free_rate, weights, T=10, conf_level=0.05, capital=1000, num_sim=300):
+def display_simulated_mc(S0_list, sig_list, risk_free_rate, weights, T=10, conf_level=0.05, capital=1000, num_sim=300):
     """
     Function displays the FV of chosen portfolio using Monte Carlo Simulation.
     
@@ -154,8 +154,8 @@ def display_simulated_mc(S0_list, sig, risk_free_rate, weights, T=10, conf_level
         S0 = S0_list[i]
         # get price movement matrix
         ini_line = np.zeros((1, num_sim))  # set initial price
-        change = (risk_free_rate  - 0.5 * sig ** 2) * delta_t + \
-                 sig * math.sqrt(delta_t) * np.random.standard_normal((T, num_sim))
+        change = (risk_free_rate  - 0.5 * sig_list[i] ** 2) * delta_t + \
+                 sig_list[i] * math.sqrt(delta_t) * np.random.standard_normal((T, num_sim))
         change = np.r_[ini_line, change]
         shares = np.floor(weights[i] * capital / S0)    # shares held from the beginning
         S += shares * S0 * np.exp(np.cumsum(change, axis=0))
@@ -175,4 +175,14 @@ def display_simulated_mc(S0_list, sig, risk_free_rate, weights, T=10, conf_level
     VaR = 0
     St = S[-1]-S[0]
     VaR = -np.percentile(St,conf_level*100)
-    return buffer, round(VaR,2)
+
+    # Return & MaxDrawdown
+    nav = (S.T/S[:,0]).T
+    total_return = nav[:,-1]/nav[:,0]
+    total_return_mean = np.mean(total_return)
+    annualized_return = math.pow(total_return_mean,365/T)-1
+
+    Drawdown = [ nav[:,t]/np.max(nav[:,0:t+1],axis=1)-1 for t in range(1,nav.shape[1])]
+    MaxDrawdown = np.min(np.min(Drawdown,axis=1))
+
+    return buffer, round(VaR,2), round(annualized_return,2), round(MaxDrawdown,2)
