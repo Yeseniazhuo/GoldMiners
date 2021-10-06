@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:$PORT manage
+web: gunicorn -b 0.0.0.0:$PORT GoldMiners.wsgi
