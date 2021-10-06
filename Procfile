@@ -1,1 +1,1 @@
-web: gunicorn GoldMiners.wsgi
+web: gunicorn GoldMiners.wsgi --log-file -
