@@ -50,7 +50,7 @@ Under each figure, portfolio insights and information are provided. Now we put t
 ##### c) Self-designed portfolio
 
 ## Theory behind and developer’s idea 
-The efficient frontier theory was first introduced by Harry Markowitz, and is also the cornerstone for modern portfolio theory. The data is from Yahoo Finance API, with the function updated in the future, more API will be considered to use. The developing language is Python, along with Java, Html, etc.（Source code can find in https://github.com/cherylmxd/GoldMiners）
+The efficient frontier theory was first introduced by Harry Markowitz, and is also the cornerstone for modern portfolio theory. The data is from Yahoo Finance API, with the function updated in the future, more API will be considered to use. The developing language is Python, along with Java, Html, etc.（Source code can find in https://github.com/cheryl-mxd/GoldMiners）
 
 The coding framework are generally similar to what was taught by professor Lee in the class but is expanded to a more integrated and functional web tool with user-friendly interface, so that users can choose whatever stocks they wish to explore, optimize their portfolio and design their own allocation with a great flexibility. As far as we know, there are not many free tools like Gold Miners for individual investors to do portfolio simulation and analytics.
 
