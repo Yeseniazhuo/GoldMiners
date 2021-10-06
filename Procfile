@@ -1,1 +1,1 @@
-web: gunicorn GoldMiners.wsgi
+web: python manage.py runserver

@@ -1,0 +1,115 @@
+html
+{
+    margin-top:0%;
+}
+*
+{
+    margin:0;
+}
+body {
+    margin: 0;
+    margin-top:0%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    color: #262730;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(105, 161, 177, 0.521);
+}
+h2
+{
+    font-size:26px;
+    font-family:Georgia;
+    color:rgb(57, 97, 107);
+}
+h3
+{
+    font-size:20px;
+    margin: 1em 0em 0.6em 0em;
+    color:rgb(64, 105, 116);
+
+}
+.root{
+    display: flex;
+}
+
+/*style of side bar */
+.sidebar {
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    width: 300px;
+    background-color: rgba(105, 161, 177, 0.26);
+}
+*.sidebar-content{
+    margin-left: 5%;
+    margin-top: 50px;
+}
+.page-nav{
+    display: flex;
+    text-align: center;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+.page-nav-select{
+    margin-left: 15px;
+}
+.set-params{
+    margin-left: 15px;
+}
+
+/*style of content */
+*.content {
+    margin-left: 300px;
+    display: block;
+}
+.results{
+    margin-left: 5%;
+    margin-top: 50px;
+}
+
+/*style of form */
+*.instructor
+{
+    margin: 1em 0em 0.6em 0em;
+    font-size: 15px;
+    font-family: Georgia;
+}
+*.input_value
+{
+    text-align: center;
+
+}
+.button
+{
+    border: 1px dashed rgba(105, 161, 177, 0.562);
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    background-color:rgba(105, 161, 177, 0.562);
+    margin-left: 5px;
+}
+
+.button:active {
+    background-color: rgba(105, 161, 177, 0.562);
+    box-shadow: 0 5px rgba(43, 64, 70, 0.329);
+    transform: translateY(1px);
+  }
+
+
+*.picture_headers
+{
+    margin: 2em 0em 0.3em 0em;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia;
+}
+
+.graph{
+    display: block;
+    margin: 0px auto;
+    width: 80%;
+}
