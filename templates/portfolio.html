@@ -29,58 +29,55 @@
 
                 <h3> Set your Portfolio:</h3>
                 <div class="set-params">
-                    <p class="instructor">Input your chosen stock symbols: <br>(<em>split them by ","</em>)</p>
                     
                     <form class="Portfolio_Parameter" method="post" action="">
+                        <p class="instructor">Input your chosen stock symbols: <br>(<em>split them by ","</em>)</p>
                         <!--后端通过name拿到数据-->
                         <input class="input_value" type = "text" name="port" value='AAPL,AMZN,FB,WMT'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='AAPL,AMZN,FB,WMT'}">
-                        <button class="button" type="submit">Change</button>
-                    </form>
-
-                    <form method="post}" action="">
+                        <br/>
                         <p class="instructor"> Number of days to predict:<br/>(trading days > 10)</p>
                         <input class="input_value" type = "text" name="days" value='10'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='10'}" 
                         oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
-                        <button class="button" type="submit">Change</button>
-                    </form>
+                        <br/>
 
-                    <form method="post" action="">
                         <p class="instructor"> Volatility estimation period:<br/>(previous n days)</p>
                         <input class="input_value" type="text" name='vol' value='30'
                         onclick="javascript: if(value != ''){value =''}"
                         onblur="javascript: if(value ==''){value='30'}"
                         oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
-                        <button class="button" type="submit">Change</button>
-                    </form>
+                        <br/>
 
-                    <form method="post" action="">
                         <p class="instructor"> Confidence level:</p>
                         <input class="input_value" type="text" name='conf' value='0.05'
                         onclick="javascript: if(value != ''){value =''}"
                         onblur="javascript: if(value ==''){value='0.05'}"
                         oninput="value=value.match(/-?[0-9]*\.?[0-9]*/)">
-                        <button class="button" type="submit">Change</button>
-                    </form>
+                        <br/>
 
-                    <form method="post" action="">
                         <p class="instructor"> Capital invested:</p>
                         <input class="input_value" type = "text" name='w0' value='1000'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='1000'}" 
                         oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
-                        <button class="button" type="submit">Change</button>
-                    </form>
+                        <br/>
 
-                    <form method="post" action="">
-                        <p class="instructor"> Number of simulation:</p>
+                        <p class="instructor"> Number of simulations:</p>
                         <input class="input_value" type = "text" name='num_sim' value='300'
                         onclick="javascript: if(value != ''){value =''}" 
                         onblur="javascript: if(value ==''){value='300'}" 
                         oninput="value=value.match(/-?[0-9]*?[0-9]*/)">
+                        <br/>
+
+                        <p class="instructor">Set your own weight <br>(<em>split them by ","</em>): </p>
+                        <input class="input_value" type = "text" name='weights' value='0.25,0.25,0.25,0.25'
+                        onclick="javascript: if(value == '0.25,0.25,0.25,0.25'){value =''}" 
+                        onblur="javascript: if(value ==''){value='0.25,0.25,0.25,0.25'}">
+                        <br/>
+                        <br/>
                         <button class="button" type="submit">Change</button>
                     </form>
                 </div>
@@ -90,6 +87,18 @@
         <div class="content">
             <div class="results">
                 <h2>Current stocks</h2>
+                <div class="showParams">
+                    <br/>
+                    <p>Chosen stocks: {{port}}</p>
+                    <p>Prediction period: {{days}}</p>
+                    <p>Volatility estimation period: {{vol}}</p>
+                    <p>Confidence level: {{conf}}</p>
+                    <p>Capital invested: {{w0}}</p>
+                    <p>Number of simulations: {{num_sim}}</p>
+                    <p>Your weights: {{ws}}</p>
+                </div>
+                <br/>
+
                 <p class="picture_headers">Simulated Efficient Frontier</p>
                 <img src="{{ img_ef }}" class="graph">
                 <hr/>
@@ -119,19 +128,15 @@
                 <p>Max Drawdown = {{MMD_max}}</p>
                 <hr/>
                 
-                <h3>Set your own weight (<em>split them by ","</em>): </h3>
-                <form class="Weight" method="post">
-                    <input class="input_value" type = "text" name='weights' value='0.25,0.25,0.25,0.25'
-                    onclick="javascript: if(value == '0.25,0.25,0.25,0.25'){value =''}" 
-                    onblur="javascript: if(value ==''){value='0.25,0.25,0.25,0.25'}">
-                    <button class="button">Change</button>
-                </form>
                 <p class="picture_headers"> Portfolio future predict(MC simulation): </p>
                 <img src="{{ img_mc }}" class="graph">
                 <p class="picture_headers">Portfolio Information:</p>
                 <p>VaR = {{ VaR_mc }}</p>
                 <p>Annualized return = {{AR_mc}}</p>
                 <p>Max Drawdown = {{MMD_mc}}</p>
+
+                <br/>
+                <br/>
             </div>
         </div>
     </div>

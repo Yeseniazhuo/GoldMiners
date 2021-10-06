@@ -64,6 +64,13 @@ def portfolio(request):
 
 
     context = {
+        'port': port,
+        'days': days,
+        'vol': vol,
+        'conf': conf,
+        'w0': w0,
+        'num_sim': num_sim,
+        'ws': ws,
         'img_ef': imd_ef,
         'img_min': imd_min,
         'img_max': imd_max,
